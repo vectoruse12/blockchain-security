@@ -4,7 +4,7 @@ import requests
 import logging
 from datetime import datetime, timedelta
 
-# Настройка логирования
+# Setting up logging
 logging.basicConfig(filename='blockchain_security.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class BlockchainSecurityMonitor:
@@ -32,8 +32,8 @@ class BlockchainSecurityMonitor:
 
     def is_anomalous(self, transaction):
         """Define criteria for anomalies. This can be customized."""
-        # Пример: обнаружение аномальных объемов транзакций
-        if transaction['amount'] > 1000:  # Порог аномалии
+        # Example: detecting anomalous transaction amounts
+        if transaction['amount'] > 1000:  # Anomaly threshold
             return True
         return False
 
@@ -45,7 +45,7 @@ class BlockchainSecurityMonitor:
     def send_alert(self, transaction):
         """Send an alert if anomalies exceed the threshold."""
         if self.anomaly_count >= self.alert_threshold:
-            # Здесь можно настроить отправку уведомления (например, через email или вебхуки)
+            # You can configure alerting (e.g., via email or webhooks)
             alert_message = f"Alert: {self.anomaly_count} anomalies detected!"
             logging.info(alert_message)
             print(alert_message)
@@ -56,9 +56,9 @@ class BlockchainSecurityMonitor:
             block = self.fetch_latest_block()
             if block:
                 self.analyze_transactions(block)
-            time.sleep(10)  # Периодичность опроса (10 секунд)
+            time.sleep(10)  # Polling interval (10 seconds)
 
 if __name__ == "__main__":
-    blockchain_url = "http://localhost:5000"  # URL вашей блокчейн-сети
+    blockchain_url = "http://localhost:5000"  # Your blockchain network URL
     monitor = BlockchainSecurityMonitor(blockchain_url)
     monitor.run()
